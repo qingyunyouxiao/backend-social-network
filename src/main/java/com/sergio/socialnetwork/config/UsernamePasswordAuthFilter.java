@@ -9,18 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sergio.socialnetwork.dto.CredentialsDto;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 public class UsernamePasswordAuthFilter extends OncePerRequestFilter {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
-
-    private final UserAuthenticationProvider userAuthenticationProvider;
-
-    public UsernamePasswordAuthFilter(UserAuthenticationProvider userAuthenticationProvider) {
-        this.userAuthenticationProvider = userAuthenticationProvider;
-    }
 
     @Override
     protected void doFilterInternal(
@@ -32,13 +27,8 @@ public class UsernamePasswordAuthFilter extends OncePerRequestFilter {
                 && HttpMethod.POST.matches(httpServletRequest.getMethod())) {
             CredentialsDto credentialsDto = MAPPER.readValue(httpServletRequest.getInputStream(), CredentialsDto.class);
 
-            try {
-                SecurityContextHolder.getContext().setAuthentication(
-                        userAuthenticationProvider.validateCredentials(credentialsDto));
-            } catch (RuntimeException e) {
-                SecurityContextHolder.clearContext();
-                throw e;
-            }
+            SecurityContextHolder.getContext().setAuthentication(
+                    new UsernamePasswordAuthenticationToken(credentialsDto.getLogin(), credentialsDto.getPassword()));
         }
 
         filterChain.doFilter(httpServletRequest, httpServletResponse);

@@ -11,12 +11,10 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserAuthenticationEntryPoint userAuthenticationEntryPoint;
-    private final UserAuthenticationProvider userAuthenticationProvider;
 
     public SecurityConfig(UserAuthenticationEntryPoint userAuthenticationEntryPoint,
                           UserAuthenticationProvider userAuthenticationProvider) {
         this.userAuthenticationEntryPoint = userAuthenticationEntryPoint;
-        this.userAuthenticationProvider = userAuthenticationProvider;
     }
 
     @Override
@@ -24,10 +22,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .exceptionHandling().authenticationEntryPoint(userAuthenticationEntryPoint)
                 .and()
-                .addFilterBefore(new UsernamePasswordAuthFilter(userAuthenticationProvider), BasicAuthenticationFilter.class)
-                .addFilterBefore(new JwtAuthFilter(userAuthenticationProvider), UsernamePasswordAuthFilter.class)
+                .addFilterBefore(new UsernamePasswordAuthFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new CookieAuthenticationFilter(), UsernamePasswordAuthFilter.class)
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().logout().deleteCookies(CookieAuthenticationFilter.COOKIE_NAME)
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/v1/signIn", "/v1/signUp").permitAll()
