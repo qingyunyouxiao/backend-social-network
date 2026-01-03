@@ -37,5 +37,4 @@ public class UserService {
     public void signOut(UserDto user) {
         // nothing to do at the moment
     }
-
 }

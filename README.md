@@ -63,18 +63,3 @@ in the Authorization header to authenticate the user.
 The advantage of the JWT is that it is stateless. The token itself contains the information about the
 user and the validity of the token. I only need the user to be stored in the database, the rest of
 the information comes inside the token.
-
-
-## Chapter 3.2
-
-In this second part of the third video, I've used the cookies to authenticate the requests. The difference
-with the JWT authentication is that the cookies are managed by the browser. They have a lot of features
-that ensure more security, like the age, the path, the encrypted information and more. 
-
-Nevertheless, we can send less information than with the JWT, because there are a lot of constraints 
-based on the cookies. As there are a lot of security rules that must be followed when creating a cookie.
-
-A problem that may occur, is that the cookies may not be accepted by the user, which will lead to authentication
-problems if our system is only based on the cookies.
-
-
