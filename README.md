@@ -1,6 +1,47 @@
 # Backend Social Network
 
-主题：Spring Boot 后端社交网络项目
+Spring Boot 社交网络项目的后端应用。
 
+项目来源：https://github.com/serlesen/backend-social-network
 
+## Chapter 1
 
+在第一章中，我使用 Intellij 创建了 Maven 项目，并描述了空 Maven 项目的文件夹结构和 pom.xml。
+
+然后，我通过将 Spring Boot 依赖作为父项目添加，将空项目转换为 Spring Boot 项目。这样，我的项目将继承 Spring Boot 项目的所有架构和配置。之后，我还添加了一个 Spring Boot Web 依赖，以表明该项目将使用 Web 层。
+
+最后，我创建了主方法，运行项目，并看到 Tomcat Web 服务器已经准备好接受请求。
+
+更多内容：[链接](https://www.yuque.com/qingyunyouxiao/book/no9t8ieyblnkee56)
+
+## Chapter 2
+
+在第二章中，我创建了具有三层架构的软件包，包括：表示层（存放控制器）、逻辑层（存放服务）以及数据层（存放数据库的数据结构）。
+
+我还创建了控制器来接受来自前端应用的 HTTP 请求，创建了请求映射以将每个 URL 映射到相应的方法。我还创建了服务层来放置所有的业务逻辑，但目前为空，因为我还没有完成数据库配置来获取数据，所以我会在之后的章节中完成这些服务层。
+
+我还使用 Spring 的依赖注入将服务注入到控制器中。
+
+我创建了一个 DTO（数据传输对象）软件包，用来放置将要发送到前端或从前端接收的对象。这避免了我直接发送代表数据库结构的对象，从而将数据库结构隐藏起来，只显示我想显示的内容。我需要将数据对象映射到 DTO 对象，但我们稍后会使用一些实用的库来处理这个过程。
+
+更多内容：[链接](https://www.yuque.com/qingyunyouxiao/book/ng30tmanht3swgd4)
+
+## Chapter 3.1
+
+在第三章中，我添加了使用 JWT 的身份验证。身份验证分为三个步骤：HTTP 过滤器、提供者和入口点。HTTP 过滤器会拦截 HTTP 请求，从登录端点读取凭证，或从其他端点读取 Bearer 令牌。提供者会根据上一步提供的凭证或令牌查找用户信息。入口点则会在发生身份验证问题时返回自定义错误。
+
+身份验证有两种方式：使用凭证（用户名和密码）或使用 Bearer 令牌。凭证仅在 signIn 或 signUp 端点发送，并会返回包含生成的 Bearer 令牌的用户信息。在其他请求中，将使用之前获得的令牌在 Authorization 头中发送，以验证用户身份。
+
+JWT 的优势在于它是无状态的。令牌本身包含了关于用户的信息以及令牌的有效性。我只需要在数据库中存储用户，其余的信息都包含在令牌中。
+
+更多内容：[链接](https://www.yuque.com/qingyunyouxiao/book/xfpkgg92d0fdzia1)
+
+## Chapter 3.2
+
+在第三章的第二部分中，我使用了 cookies 来验证请求。与 JWT 验证的不同之处在于，cookies 由浏览器管理。它们有很多功能，可以确保更高的安全性，比如有效期、路径、加密信息等等。
+
+然而，与 JWT 相比，我们能发送的信息较少，因为 cookies 有许多约束条件。创建 cookie 时必须遵守很多安全规则。
+
+可能出现的问题是，用户可能不会接受 cookies，如果我们的系统仅依赖 cookies，那么就会导致验证问题。
+
+更多内容：[链接](https://www.yuque.com/qingyunyouxiao/book/eu41wk9zgqunkyog)
