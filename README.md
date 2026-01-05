@@ -2,7 +2,7 @@
 
 Spring Boot 社交网络项目的后端应用。
 
-项目来源：https://github.com/serlesen/backend-social-network
+项目来源：[链接](https://github.com/serlesen/backend-social-network)
 
 ## Chapter 1
 
