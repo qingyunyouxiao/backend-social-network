@@ -18,8 +18,15 @@ public class MessageDto {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getcontent() {
         return content;
     }
 
+    public void setId(String content) {
+        this.content = content;
+    }
 }

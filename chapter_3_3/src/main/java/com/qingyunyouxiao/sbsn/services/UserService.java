@@ -4,13 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
 import com.qingyunyouxiao.sbsn.dto.*;
 
 @Service
 public class UserService {
     
-    public ProfileDto getProfile(int userId) {
+    public ProfileDto getProfile(Long userId) {
         return new ProfileDto(new UserSummaryDto(1L, "Philip", "Harder"), 
                 Arrays.asList(new UserSummaryDto(2L,"Alex", "Buey")),
                 Arrays.asList(new MessageDto(1L, "Message")),
@@ -27,4 +26,7 @@ public class UserService {
                 new UserSummaryDto(2L,"Alex", "Buey"));
     }
 
+    public void signOut(UserDto user) {
+        return ; // nothing to do at the moment
+    }
 }

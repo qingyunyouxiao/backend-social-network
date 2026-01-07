@@ -2,6 +2,9 @@ package com.qingyunyouxiao.sbsn.controllers;
 
 import java.util.List;
 
+import com.qingyunyouxiao.sbsn.dto.ProfileDto;
+import com.qingyunyouxiao.sbsn.dto.UserSummaryDto;
+import com.qingyunyouxiao.sbsn.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,10 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.qingyunyouxiao.sbsn.dto.ProfileDto;
-import com.qingyunyouxiao.sbsn.dto.UserSummaryDto;
-import com.qingyunyouxiao.sbsn.services.UserService;
 
 @RestController
 @RequestMapping("/v1/users")
@@ -25,7 +24,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/profile")
-    public ResponseEntity<ProfileDto> getUserProfile(@PathVariable int userId) {
+    public ResponseEntity<ProfileDto> getUserProfile(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.getProfile(userId));
     }
 
@@ -35,7 +34,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping
+    @PostMapping("/search")
     public ResponseEntity<List<UserSummaryDto>> searchUsers(@RequestParam(value = "term") String term) {
         return ResponseEntity.ok(userService.searchUsers(term));
     }

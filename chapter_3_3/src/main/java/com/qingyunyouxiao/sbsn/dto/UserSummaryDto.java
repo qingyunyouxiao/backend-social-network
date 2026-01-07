@@ -1,6 +1,7 @@
 package com.qingyunyouxiao.sbsn.dto;
 
 public class UserSummaryDto {
+
     public Long id;
     public String firstName;
     public String lastName;
